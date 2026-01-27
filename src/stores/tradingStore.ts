@@ -1,62 +1,53 @@
 import { create } from 'zustand';
-import { TradingMode, Bot, Trade, PortfolioStats } from '@/types/trading';
+import { persist } from 'zustand/middleware';
+import { TradingMode, BotConfig, Trade, Signal, Alert, DashboardStats, RSIConfig } from '@/types/trading';
 
 interface TradingState {
-  mode: TradingMode;
-  setMode: (mode: TradingMode) => void;
-  bots: Bot[];
+  botConfig: BotConfig;
   trades: Trade[];
-  stats: PortfolioStats;
-  toggleBot: (botId: string) => void;
-  addBot: (bot: Bot) => void;
-  removeBot: (botId: string) => void;
+  signals: Signal[];
+  alerts: Alert[];
+  stats: DashboardStats;
+  
+  // Bot control actions
+  startBot: () => void;
+  stopBot: () => void;
+  emergencyStop: () => void;
+  
+  // Configuration actions
+  setMode: (mode: TradingMode) => void;
+  updateRSIConfig: (config: Partial<RSIConfig>) => void;
+  
+  // Alert actions
+  addAlert: (alert: Omit<Alert, 'id' | 'timestamp'>) => void;
+  clearAlerts: () => void;
 }
 
-// Mock data for demonstration
-const mockBots: Bot[] = [
-  {
-    id: '1',
-    name: 'BTC Grid Trader',
-    strategy: 'grid',
-    pair: 'BTC/USDT',
-    status: 'running',
-    pnl: 1250.45,
-    pnlPercent: 12.5,
-    tradesCount: 156,
-    createdAt: '2024-01-15T10:00:00Z',
-    lastTradeAt: '2024-01-20T14:30:00Z',
-  },
-  {
-    id: '2',
-    name: 'ETH DCA Bot',
-    strategy: 'dca',
-    pair: 'ETH/USDT',
-    status: 'running',
-    pnl: 890.20,
-    pnlPercent: 8.9,
-    tradesCount: 48,
-    createdAt: '2024-01-10T08:00:00Z',
-    lastTradeAt: '2024-01-20T12:00:00Z',
-  },
-  {
-    id: '3',
-    name: 'SOL Momentum',
-    strategy: 'momentum',
-    pair: 'SOL/USDT',
-    status: 'stopped',
-    pnl: -125.30,
-    pnlPercent: -2.5,
-    tradesCount: 23,
-    createdAt: '2024-01-18T15:00:00Z',
-  },
-];
+const defaultRSIConfig: RSIConfig = {
+  period: 14,
+  buyThreshold: 30,
+  sellThreshold: 70,
+  timeframe: '15m',
+  capitalPercentage: 10,
+  stopLossPercent: 5,
+  takeProfitPercent: 10,
+  maxTradesPerDay: 3,
+};
 
+const defaultBotConfig: BotConfig = {
+  status: 'stopped',
+  mode: 'paper',
+  pair: 'BTC/USD',
+  strategy: 'RSI',
+  rsiConfig: defaultRSIConfig,
+  lastUpdated: new Date().toISOString(),
+};
+
+// Mock trade history
 const mockTrades: Trade[] = [
   {
     id: 't1',
-    botId: '1',
-    botName: 'BTC Grid Trader',
-    pair: 'BTC/USDT',
+    pair: 'BTC/USD',
     side: 'buy',
     price: 42150.00,
     amount: 0.025,
@@ -64,12 +55,11 @@ const mockTrades: Trade[] = [
     fee: 1.05,
     timestamp: '2024-01-20T14:30:00Z',
     pnl: 45.20,
+    status: 'closed',
   },
   {
     id: 't2',
-    botId: '1',
-    botName: 'BTC Grid Trader',
-    pair: 'BTC/USDT',
+    pair: 'BTC/USD',
     side: 'sell',
     price: 42350.00,
     amount: 0.025,
@@ -77,71 +67,163 @@ const mockTrades: Trade[] = [
     fee: 1.06,
     timestamp: '2024-01-20T13:15:00Z',
     pnl: 52.50,
+    status: 'closed',
   },
   {
     id: 't3',
-    botId: '2',
-    botName: 'ETH DCA Bot',
-    pair: 'ETH/USDT',
+    pair: 'BTC/USD',
     side: 'buy',
-    price: 2480.00,
-    amount: 0.5,
-    total: 1240.00,
-    fee: 1.24,
-    timestamp: '2024-01-20T12:00:00Z',
-  },
-  {
-    id: 't4',
-    botId: '3',
-    botName: 'SOL Momentum',
-    pair: 'SOL/USDT',
-    side: 'sell',
-    price: 98.50,
-    amount: 10,
-    total: 985.00,
-    fee: 0.99,
-    timestamp: '2024-01-19T18:45:00Z',
+    price: 41980.00,
+    amount: 0.03,
+    total: 1259.40,
+    fee: 1.26,
+    timestamp: '2024-01-19T10:00:00Z',
     pnl: -15.30,
+    status: 'closed',
   },
 ];
 
-const mockStats: PortfolioStats = {
-  totalValue: 25420.50,
-  totalPnl: 2015.35,
-  totalPnlPercent: 8.6,
-  activeBots: 2,
-  totalTrades: 227,
-  winRate: 68.5,
+const mockAlerts: Alert[] = [
+  {
+    id: 'a1',
+    type: 'info',
+    message: 'Bot configuration saved successfully',
+    timestamp: '2024-01-20T14:00:00Z',
+  },
+  {
+    id: 'a2',
+    type: 'success',
+    message: 'Buy signal executed at $42,150',
+    timestamp: '2024-01-20T14:30:00Z',
+  },
+];
+
+const mockStats: DashboardStats = {
+  currentPrice: 42350.00,
+  rsiValue: 45.2,
+  openTrade: null,
+  todayTradesCount: 2,
+  totalPnl: 82.40,
 };
 
-export const useTradingStore = create<TradingState>((set) => ({
-  mode: 'paper',
-  setMode: (mode) => set({ mode }),
-  bots: mockBots,
-  trades: mockTrades,
-  stats: mockStats,
-  toggleBot: (botId) =>
-    set((state) => ({
-      bots: state.bots.map((bot) =>
-        bot.id === botId
-          ? { ...bot, status: bot.status === 'running' ? 'stopped' : 'running' }
-          : bot
-      ),
-      stats: {
-        ...state.stats,
-        activeBots: state.bots.filter((b) =>
-          b.id === botId
-            ? b.status !== 'running'
-            : b.status === 'running'
-        ).length,
+export const useTradingStore = create<TradingState>()(
+  persist(
+    (set, get) => ({
+      botConfig: defaultBotConfig,
+      trades: mockTrades,
+      signals: [],
+      alerts: mockAlerts,
+      stats: mockStats,
+
+      startBot: () => {
+        const { botConfig, addAlert } = get();
+        set({
+          botConfig: {
+            ...botConfig,
+            status: 'running',
+            lastUpdated: new Date().toISOString(),
+          },
+        });
+        addAlert({
+          type: 'success',
+          message: `Bot started in ${botConfig.mode === 'paper' ? 'Paper' : 'Live'} trading mode`,
+        });
       },
-    })),
-  addBot: (bot) =>
-    set((state) => ({
-      bots: [...state.bots, bot],
-    })),
-  removeBot: (botId) =>
-    set((state) => ({
-      bots: state.bots.filter((b) => b.id !== botId),
-    })),
-}));
+
+      stopBot: () => {
+        const { botConfig, addAlert } = get();
+        set({
+          botConfig: {
+            ...botConfig,
+            status: 'stopped',
+            lastUpdated: new Date().toISOString(),
+          },
+        });
+        addAlert({
+          type: 'info',
+          message: 'Bot stopped gracefully',
+        });
+      },
+
+      emergencyStop: () => {
+        const { botConfig, addAlert } = get();
+        set({
+          botConfig: {
+            ...botConfig,
+            status: 'stopped',
+            mode: 'paper', // Switch to paper mode on emergency
+            lastUpdated: new Date().toISOString(),
+          },
+        });
+        addAlert({
+          type: 'warning',
+          message: 'Emergency stop activated! Bot stopped and switched to Paper mode.',
+        });
+      },
+
+      setMode: (mode) => {
+        const { botConfig, addAlert } = get();
+        if (botConfig.status === 'running') {
+          addAlert({
+            type: 'warning',
+            message: 'Cannot change trading mode while bot is running. Stop the bot first.',
+          });
+          return;
+        }
+        set({
+          botConfig: {
+            ...botConfig,
+            mode,
+            lastUpdated: new Date().toISOString(),
+          },
+        });
+        addAlert({
+          type: 'info',
+          message: `Trading mode changed to ${mode === 'paper' ? 'Paper' : 'Live'}`,
+        });
+      },
+
+      updateRSIConfig: (config) => {
+        const { botConfig, addAlert } = get();
+        if (botConfig.status === 'running') {
+          addAlert({
+            type: 'warning',
+            message: 'Cannot update configuration while bot is running. Stop the bot first.',
+          });
+          return;
+        }
+        set({
+          botConfig: {
+            ...botConfig,
+            rsiConfig: { ...botConfig.rsiConfig, ...config },
+            lastUpdated: new Date().toISOString(),
+          },
+        });
+        addAlert({
+          type: 'success',
+          message: 'Bot configuration updated successfully',
+        });
+      },
+
+      addAlert: (alert) =>
+        set((state) => ({
+          alerts: [
+            {
+              ...alert,
+              id: Date.now().toString(),
+              timestamp: new Date().toISOString(),
+            },
+            ...state.alerts.slice(0, 49), // Keep last 50 alerts
+          ],
+        })),
+
+      clearAlerts: () => set({ alerts: [] }),
+    }),
+    {
+      name: 'trading-store',
+      partialize: (state) => ({
+        botConfig: state.botConfig,
+      }),
+    }
+  )
+);

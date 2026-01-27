@@ -1,5 +1,5 @@
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
-import { TradeHistoryTable } from "@/components/trading/TradeHistoryTable";
+import { SimpleTradeHistory } from "@/components/trading/SimpleTradeHistory";
 import { useTradingStore } from "@/stores/tradingStore";
 import { History, Download, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,7 @@ const TradeHistory = () => {
           <div>
             <h1 className="text-3xl font-bold">Trade History</h1>
             <p className="text-muted-foreground mt-1">
-              View all your executed trades
+              View all executed trades for your BTC/USD bot
             </p>
           </div>
           <div className="flex gap-2">
@@ -57,11 +57,11 @@ const TradeHistory = () => {
             </div>
             <h3 className="mt-4 text-lg font-semibold">No trades yet</h3>
             <p className="mt-2 text-muted-foreground">
-              Your trade history will appear here once your bots start trading.
+              Your trade history will appear here once your bot starts trading.
             </p>
           </div>
         ) : (
-          <TradeHistoryTable trades={trades} />
+          <SimpleTradeHistory />
         )}
       </div>
     </DashboardLayout>

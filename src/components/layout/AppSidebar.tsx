@@ -2,11 +2,9 @@ import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
-  Bot,
-  LineChart,
   Settings,
   History,
-  PlusCircle,
+  Sliders,
   ChevronLeft,
   ChevronRight,
   Zap,
@@ -17,10 +15,8 @@ import { TradingModeToggle } from "@/components/trading/TradingModeToggle";
 
 const navItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
-  { title: "My Bots", url: "/bots", icon: Bot },
-  { title: "Create Bot", url: "/create", icon: PlusCircle },
+  { title: "Configure Bot", url: "/configure", icon: Sliders },
   { title: "Trade History", url: "/history", icon: History },
-  { title: "Analytics", url: "/analytics", icon: LineChart },
   { title: "Settings", url: "/settings", icon: Settings },
 ];
 

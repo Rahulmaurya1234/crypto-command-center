@@ -1,28 +1,33 @@
 export type TradingMode = 'paper' | 'live';
 
-export type BotStatus = 'running' | 'stopped' | 'error';
+export type BotStatus = 'running' | 'stopped';
 
 export type OrderSide = 'buy' | 'sell';
 
-export type StrategyType = 'grid' | 'dca' | 'momentum' | 'arbitrage';
+export type Timeframe = '5m' | '15m';
 
-export interface Bot {
-  id: string;
-  name: string;
-  strategy: StrategyType;
-  pair: string;
+export interface RSIConfig {
+  period: number;
+  buyThreshold: number;
+  sellThreshold: number;
+  timeframe: Timeframe;
+  capitalPercentage: number;
+  stopLossPercent: number;
+  takeProfitPercent: number;
+  maxTradesPerDay: number;
+}
+
+export interface BotConfig {
   status: BotStatus;
-  pnl: number;
-  pnlPercent: number;
-  tradesCount: number;
-  createdAt: string;
-  lastTradeAt?: string;
+  mode: TradingMode;
+  pair: 'BTC/USD';
+  strategy: 'RSI';
+  rsiConfig: RSIConfig;
+  lastUpdated: string;
 }
 
 export interface Trade {
   id: string;
-  botId: string;
-  botName: string;
   pair: string;
   side: OrderSide;
   price: number;
@@ -31,26 +36,29 @@ export interface Trade {
   fee: number;
   timestamp: string;
   pnl?: number;
+  status: 'open' | 'closed';
 }
 
-export interface StrategyConfig {
-  name: string;
-  strategy: StrategyType;
-  pair: string;
-  investment: number;
-  gridLevels?: number;
-  gridSpacing?: number;
-  dcaInterval?: number;
-  dcaAmount?: number;
-  stopLoss?: number;
-  takeProfit?: number;
+export interface Signal {
+  id: string;
+  type: OrderSide;
+  price: number;
+  timestamp: string;
+  rsiValue: number;
+  executed: boolean;
 }
 
-export interface PortfolioStats {
-  totalValue: number;
+export interface Alert {
+  id: string;
+  type: 'info' | 'warning' | 'error' | 'success';
+  message: string;
+  timestamp: string;
+}
+
+export interface DashboardStats {
+  currentPrice: number;
+  rsiValue: number;
+  openTrade: Trade | null;
+  todayTradesCount: number;
   totalPnl: number;
-  totalPnlPercent: number;
-  activeBots: number;
-  totalTrades: number;
-  winRate: number;
 }
