@@ -1,15 +1,15 @@
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { Settings as SettingsIcon, Bell, Shield, Key, Globe } from "lucide-react";
+import { Bell, Shield, Key, Globe } from "lucide-react";
 
 const Settings = () => {
   return (
     <DashboardLayout>
       <div className="max-w-3xl mx-auto space-y-8 animate-slide-in">
+        {/* Header */}
         <div>
           <h1 className="text-3xl font-bold">Settings</h1>
           <p className="text-muted-foreground mt-1">
@@ -30,7 +30,9 @@ const Settings = () => {
               </p>
             </div>
           </div>
+
           <Separator className="bg-border" />
+
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
@@ -41,20 +43,22 @@ const Settings = () => {
               </div>
               <Switch defaultChecked />
             </div>
+
             <div className="flex items-center justify-between">
               <div>
                 <Label>Bot Status Changes</Label>
                 <p className="text-sm text-muted-foreground">
-                  Alerts when bots start, stop, or error
+                  Alerts when bot starts, stops, or errors
                 </p>
               </div>
               <Switch defaultChecked />
             </div>
+
             <div className="flex items-center justify-between">
               <div>
                 <Label>Price Alerts</Label>
                 <p className="text-sm text-muted-foreground">
-                  Notifications for significant price movements
+                  Notifications for major price movements
                 </p>
               </div>
               <Switch />
@@ -75,7 +79,9 @@ const Settings = () => {
               </p>
             </div>
           </div>
+
           <Separator className="bg-border" />
+
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
@@ -88,11 +94,12 @@ const Settings = () => {
                 Enable
               </Button>
             </div>
+
             <div className="flex items-center justify-between">
               <div>
                 <Label>Session Timeout</Label>
                 <p className="text-sm text-muted-foreground">
-                  Auto-logout after inactivity
+                  Auto logout after inactivity
                 </p>
               </div>
               <Switch defaultChecked />
@@ -100,40 +107,37 @@ const Settings = () => {
           </div>
         </div>
 
-        {/* API Configuration */}
+        {/* Execution Engine (Executor Status) */}
         <div className="glass-card rounded-xl p-6 space-y-6">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary">
               <Key className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <h2 className="text-lg font-semibold">API Configuration</h2>
+              <h2 className="text-lg font-semibold">Execution Engine</h2>
               <p className="text-sm text-muted-foreground">
-                Connect your trading executor
+                Trading executor connection status
               </p>
             </div>
           </div>
+
           <Separator className="bg-border" />
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="apiKey">API Key</Label>
-              <Input
-                id="apiKey"
-                type="password"
-                placeholder="Enter your API key"
-                className="bg-secondary border-border font-mono"
-              />
+
+          <div className="space-y-3 text-sm">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Executor</span>
+              <span className="font-medium">Third-Party Executor</span>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="apiSecret">API Secret</Label>
-              <Input
-                id="apiSecret"
-                type="password"
-                placeholder="Enter your API secret"
-                className="bg-secondary border-border font-mono"
-              />
+
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Connection Status</span>
+              <span className="font-medium text-green-500">Connected</span>
             </div>
-            <Button variant="glow">Save API Credentials</Button>
+
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Last Sync</span>
+              <span className="font-mono">Just now</span>
+            </div>
           </div>
         </div>
 
@@ -150,7 +154,9 @@ const Settings = () => {
               </p>
             </div>
           </div>
+
           <Separator className="bg-border" />
+
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
@@ -163,6 +169,7 @@ const Settings = () => {
                 USD
               </span>
             </div>
+
             <div className="flex items-center justify-between">
               <div>
                 <Label>Timezone</Label>
