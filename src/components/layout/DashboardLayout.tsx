@@ -9,7 +9,8 @@ interface DashboardLayoutProps {
 }
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
-  const { mode } = useTradingStore();
+  const { botConfig, stats } = useTradingStore();
+  const mode = botConfig.mode;
 
   return (
     <div className="min-h-screen bg-background">
@@ -39,15 +40,21 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                 </>
               )}
             </div>
+            <div className={cn(
+              "flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium",
+              botConfig.status === 'running' ? "bg-success/20 text-success" : "bg-secondary text-muted-foreground"
+            )}>
+              <div className={cn(
+                "h-2 w-2 rounded-full",
+                botConfig.status === 'running' ? "bg-success animate-pulse" : "bg-muted-foreground"
+              )} />
+              Bot {botConfig.status === 'running' ? 'Running' : 'Stopped'}
+            </div>
           </div>
           <div className="flex items-center gap-4">
             <div className="text-sm text-muted-foreground">
-              <span className="font-mono">BTC: </span>
-              <span className="font-mono text-foreground">$42,350.00</span>
-            </div>
-            <div className="text-sm text-muted-foreground">
-              <span className="font-mono">ETH: </span>
-              <span className="font-mono text-foreground">$2,485.00</span>
+              <span className="font-mono">BTC/USD: </span>
+              <span className="font-mono text-foreground">${stats.currentPrice.toLocaleString()}</span>
             </div>
           </div>
         </header>
