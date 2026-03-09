@@ -41,7 +41,7 @@ const Landing = () => {
               className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-card/80 backdrop-blur-sm px-5 py-2 text-sm text-secondary-foreground shadow-soft"
             >
               <Crown className="h-4 w-4 text-gold" />
-              <span className="font-medium">✨ Now Live in Pune</span>
+              <span className="font-medium">✨ Now Live in Kanpur, Fatehpur & Lucknow</span>
             </motion.div>
 
             <motion.h1
