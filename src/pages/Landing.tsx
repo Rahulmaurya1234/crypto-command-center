@@ -74,7 +74,7 @@ const Landing = () => {
                 {/* City dropdown */}
                 <div className="flex items-center gap-2 rounded-xl bg-accent/60 px-4 py-3 text-sm min-w-[150px] cursor-pointer hover:bg-accent transition-colors">
                   <MapPin className="h-4 w-4 text-primary shrink-0" />
-                  <span className="text-foreground font-medium">Pune</span>
+                  <span className="text-foreground font-medium">Kanpur</span>
                   <ChevronDown className="h-3.5 w-3.5 text-muted-foreground ml-auto" />
                 </div>
 
