@@ -50,7 +50,7 @@ const Landing = () => {
               transition={{ duration: 0.7, delay: 0.1 }}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-foreground leading-[1.1] max-w-4xl mx-auto"
             >
-              Apne Shehar ke Best Beauty Parlour{" "}
+               Apne Shehar ke Best Beauty Salon{" "}
               <span className="premium-gradient-text">Yahin Milega</span>
             </motion.h1>
 
