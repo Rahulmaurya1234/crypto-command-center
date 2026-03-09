@@ -60,7 +60,7 @@ export const PARLOURS: Parlour[] = [
     id: "3",
     name: "Radiance Hair & Beauty",
     address: "FC Road, Shivajinagar",
-    city: "Pune",
+    city: "Lucknow",
     rating: 4.3,
     reviewCount: 210,
     image: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=600&q=80",
