@@ -24,7 +24,7 @@ export const PARLOURS: Parlour[] = [
     id: "1",
     name: "Glow & Grace Salon",
     address: "MG Road, Camp Area",
-    city: "Pune",
+    city: "Kanpur",
     rating: 4.6,
     reviewCount: 124,
     image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80",
