@@ -42,7 +42,7 @@ export const PARLOURS: Parlour[] = [
     id: "2",
     name: "Blush Beauty Studio",
     address: "Koregaon Park, Lane 5",
-    city: "Pune",
+    city: "Fatehpur",
     rating: 4.8,
     reviewCount: 89,
     image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80",
