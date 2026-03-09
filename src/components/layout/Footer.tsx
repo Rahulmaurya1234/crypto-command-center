@@ -45,9 +45,9 @@ export function Footer() {
           <div className="space-y-4">
             <h4 className="font-serif font-semibold text-foreground">Get in Touch</h4>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
-              <li>hello@shrigarsetu.com</li>
+              <li>hello@shringarsetu.com</li>
               <li>+91 98765 43210</li>
-              <li>Pune, Maharashtra</li>
+              <li>Kanpur, Fatehpur & Lucknow, UP</li>
             </ul>
           </div>
         </div>
