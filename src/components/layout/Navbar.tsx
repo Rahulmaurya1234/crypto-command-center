@@ -28,7 +28,7 @@ export function Navbar() {
             <div className="absolute inset-0 h-6 w-6 text-primary blur-md opacity-50" />
           </div>
           <span className="text-xl font-serif font-bold text-foreground tracking-tight">
-            Shrigar<span className="text-primary">Setu</span>
+            Shringar<span className="text-primary">Setu</span>
           </span>
         </Link>
 
