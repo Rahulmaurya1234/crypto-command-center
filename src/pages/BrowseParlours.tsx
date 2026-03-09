@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 
 const BrowseParlours = () => {
   const [search, setSearch] = useState("");
-  const city = "Pune";
+  const [city, setCity] = useState("Kanpur");
 
   const filtered = PARLOURS.filter(
     (p) =>
@@ -31,7 +31,7 @@ const BrowseParlours = () => {
         >
           <div className="flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-primary" />
-            <Badge variant="secondary" className="rounded-full text-xs">Pune</Badge>
+            <Badge variant="secondary" className="rounded-full text-xs">{city}</Badge>
           </div>
           <h1 className="text-3xl md:text-4xl font-serif font-bold text-foreground">
             Beauty <span className="text-primary">Parlours</span>

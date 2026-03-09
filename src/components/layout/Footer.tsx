@@ -45,15 +45,15 @@ export function Footer() {
           <div className="space-y-4">
             <h4 className="font-serif font-semibold text-foreground">Get in Touch</h4>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
-              <li>hello@shrigarsetu.com</li>
+              <li>hello@shringarsetu.com</li>
               <li>+91 98765 43210</li>
-              <li>Pune, Maharashtra</li>
+              <li>Kanpur, Fatehpur & Lucknow, UP</li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-xs text-muted-foreground">© 2026 ShrigarSetu. All rights reserved.</p>
+          <p className="text-xs text-muted-foreground">© 2026 ShringarSetu. All rights reserved.</p>
           <p className="text-xs text-muted-foreground flex items-center gap-1">
             Made with <Heart className="h-3 w-3 text-primary fill-primary" /> for beautiful souls
           </p>

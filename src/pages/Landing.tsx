@@ -41,7 +41,7 @@ const Landing = () => {
               className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-card/80 backdrop-blur-sm px-5 py-2 text-sm text-secondary-foreground shadow-soft"
             >
               <Crown className="h-4 w-4 text-gold" />
-              <span className="font-medium">✨ Now Live in Pune</span>
+              <span className="font-medium">✨ Now Live in Kanpur, Fatehpur & Lucknow</span>
             </motion.div>
 
             <motion.h1
@@ -50,7 +50,7 @@ const Landing = () => {
               transition={{ duration: 0.7, delay: 0.1 }}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-foreground leading-[1.1] max-w-4xl mx-auto"
             >
-              Apne Shehar ke Best Beauty Parlour{" "}
+               Apne Shehar ke Best Beauty Salon{" "}
               <span className="premium-gradient-text">Yahin Milega</span>
             </motion.h1>
 
@@ -74,7 +74,7 @@ const Landing = () => {
                 {/* City dropdown */}
                 <div className="flex items-center gap-2 rounded-xl bg-accent/60 px-4 py-3 text-sm min-w-[150px] cursor-pointer hover:bg-accent transition-colors">
                   <MapPin className="h-4 w-4 text-primary shrink-0" />
-                  <span className="text-foreground font-medium">Pune</span>
+                  <span className="text-foreground font-medium">Kanpur</span>
                   <ChevronDown className="h-3.5 w-3.5 text-muted-foreground ml-auto" />
                 </div>
 
@@ -288,7 +288,7 @@ const Landing = () => {
                 Ready to Glow? ✨
               </h2>
               <p className="text-primary-foreground/80 text-lg max-w-md mx-auto">
-                Explore the best beauty parlours in Pune and book your next appointment today.
+                Explore the best beauty salons in your city and book your next appointment today.
               </p>
               <Link to="/parlours">
                 <Button size="lg" className="bg-card text-primary hover:bg-card/90 shadow-premium text-base px-10 h-12 rounded-full">
