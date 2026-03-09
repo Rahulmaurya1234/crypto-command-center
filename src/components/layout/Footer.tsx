@@ -13,8 +13,8 @@ export function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-primary" />
-              <span className="font-serif font-bold text-foreground text-lg">
-                Shrigar<span className="text-primary">Setu</span>
+            <span className="font-serif font-bold text-foreground text-lg">
+                Shringar<span className="text-primary">Setu</span>
               </span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
