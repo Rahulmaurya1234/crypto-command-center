@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 
 const BrowseParlours = () => {
   const [search, setSearch] = useState("");
-  const [city, setCity] = useState("Kanpur")y] = useState("Kanpur");
+  const [city, setCity] = useState("Kanpur");
 
   const filtered = PARLOURS.filter(
     (p) =>
