@@ -53,7 +53,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-xs text-muted-foreground">© 2026 ShrigarSetu. All rights reserved.</p>
+          <p className="text-xs text-muted-foreground">© 2026 ShringarSetu. All rights reserved.</p>
           <p className="text-xs text-muted-foreground flex items-center gap-1">
             Made with <Heart className="h-3 w-3 text-primary fill-primary" /> for beautiful souls
           </p>

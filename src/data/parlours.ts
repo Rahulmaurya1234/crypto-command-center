@@ -78,7 +78,7 @@ export const PARLOURS: Parlour[] = [
     id: "4",
     name: "Aura Beauty Lounge",
     address: "Baner Road, Near Highway",
-    city: "Pune",
+    city: "Kanpur",
     rating: 4.5,
     reviewCount: 67,
     image: "https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=600&q=80",

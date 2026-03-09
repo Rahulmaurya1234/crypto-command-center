@@ -288,7 +288,7 @@ const Landing = () => {
                 Ready to Glow? ✨
               </h2>
               <p className="text-primary-foreground/80 text-lg max-w-md mx-auto">
-                Explore the best beauty parlours in Pune and book your next appointment today.
+                Explore the best beauty salons in your city and book your next appointment today.
               </p>
               <Link to="/parlours">
                 <Button size="lg" className="bg-card text-primary hover:bg-card/90 shadow-premium text-base px-10 h-12 rounded-full">
